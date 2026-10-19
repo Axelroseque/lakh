@@ -14,6 +14,8 @@ Browser → `/api/*` (Vercel functions) → Google Apps Script (`code.gs`) / VPS
 
 > The GAS Trigger page needs the new `LOG_LIST`, `TELEGRAM_LOG_LIST`, `TELEGRAM_STATUS`, `SETTINGS_GET` and `SETTINGS_SET` actions: **re-deploy** the updated `gas/code.gs` (Deploy > Manage deployments > New version).
 
+Panduan lengkap (Bahasa Indonesia): **PANDUAN.md**.
+
 ## Run locally (no Google, no AI needed)
 ```bash
 npm install
