@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Design tokens taken from the LAKH mockups (dark theme only). */
+@theme {
+  --color-primary: #ffb3b0;
+  --color-primary-container: #ff5358;
+  --color-primary-fixed: #ffdad8;
+  --color-on-primary: #68000f;
+  --color-on-primary-container: #5b000c;
+  --color-secondary: #adc6ff;
+  --color-secondary-container: #0566d9;
+  --color-on-secondary: #002e6a;
+  --color-on-secondary-container: #e6ecff;
+  --color-tertiary: #c0c1ff;
+  --color-tertiary-container: #8083ff;
+  --color-tertiary-fixed: #e1e0ff;
+  --color-error: #ffb4ab;
+  --color-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
+  --color-background: #111317;
+  --color-surface: #111317;
+  --color-surface-container-lowest: #0c0e12;
+  --color-surface-container-low: #1a1c20;
+  --color-surface-container: #1e2024;
+  --color-surface-container-high: #282a2e;
+  --color-surface-container-highest: #333539;
+  --color-surface-bright: #37393e;
+  --color-surface-variant: #333539;
+  --color-on-surface: #e2e2e8;
+  --color-on-surface-variant: #e6bdba;
+  --color-outline: #ab8987;
+  --color-outline-variant: #5d3f3e;
+
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-label: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-headline-xl: 32px;
+  --text-headline-xl--line-height: 40px;
+  --text-headline-xl--font-weight: 700;
+  --text-headline-lg: 24px;
+  --text-headline-lg--line-height: 32px;
+  --text-headline-lg--font-weight: 700;
+  --text-headline-md: 18px;
+  --text-headline-md--line-height: 26px;
+  --text-headline-md--font-weight: 600;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 24px;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 20px;
+  --text-body-sm: 12px;
+  --text-body-sm--line-height: 18px;
+  --text-label-lg: 13px;
+  --text-label-lg--line-height: 18px;
+  --text-label-lg--font-weight: 600;
+  --text-label-md: 11px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--font-weight: 600;
+  --text-label-sm: 10px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--font-weight: 500;
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2rem;
+  --spacing-gutter: 1.25rem;
+}
+
+@layer base {
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  :focus-visible { outline: 2px solid var(--color-secondary); outline-offset: 2px; }
+  select, input, textarea { font: inherit; }
+}
+
+/* Labels, chips and metadata use Inter, as in the mockups. */
+.font-label { font-family: var(--font-label); }
+
+/* Generator matrix columns: time | task | result | status | actions */
+@media (min-width: 768px) {
+  .llk-cols { grid-template-columns: 150px minmax(0, 1fr) minmax(0, 200px) 190px 104px; }
+}
