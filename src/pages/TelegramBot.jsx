@@ -13,20 +13,20 @@ const inputCls = 'w-full rounded-lg bg-surface-container-lowest border border-ou
 const fmtTime = (ts, today) => (String(ts).startsWith(today) ? String(ts).slice(11, 19) : String(ts).slice(8, 10) + '/' + String(ts).slice(5, 7) + ' ' + String(ts).slice(11, 16));
 const hhmm = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
 
-function Stat({ label, tag, tagCls = 'text-secondary', title, sub, foot, bar }) {
+function Stat({ label, tag, tagCls = 'text-sky-400', title, sub, foot, bar }) {
   return (
-    <div className="rounded-xl bg-surface-container p-space-md flex flex-col justify-between gap-3 min-w-0">
+    <div className="rounded-2xl backdrop-blur-xl bg-[#0c1017]/80 border border-white/[0.08] p-5 flex flex-col justify-between gap-3 min-w-0 shadow-[0_12px_32px_rgba(0,0,0,0.5)] hover:border-white/[0.14] transition-all">
       <div className="flex items-center justify-between gap-2">
-        <span className="font-label text-label-md text-outline uppercase tracking-wider">{label}</span>
-        {tag && <span className={'px-2 py-0.5 rounded-full bg-surface-container-high font-label text-label-sm font-semibold ' + tagCls}>{tag}</span>}
+        <span className="font-label text-[11px] text-slate-400 uppercase tracking-wider font-bold">{label}</span>
+        {tag && <span className={'px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] font-label text-xs font-semibold ' + tagCls}>{tag}</span>}
       </div>
       <div className="min-w-0">
-        <div className="text-headline-md font-bold text-on-surface truncate" title={typeof title === 'string' ? title : undefined}>{title}</div>
-        <div className="font-label text-label-sm text-on-surface-variant truncate">{sub}</div>
+        <div className="text-xl font-bold text-white truncate" title={typeof title === 'string' ? title : undefined}>{title}</div>
+        <div className="font-label text-xs text-slate-400 truncate mt-0.5">{sub}</div>
       </div>
       {bar != null
-        ? <div className="h-1.5 rounded-full bg-surface-container-lowest overflow-hidden"><div className="h-full bg-secondary rounded-full" style={{ width: bar + '%' }} /></div>
-        : <div className="font-label text-label-sm text-outline flex items-center gap-1.5">{foot}</div>}
+        ? <div className="h-1.5 rounded-full bg-black/60 border border-white/[0.06] overflow-hidden"><div className="h-full bg-sky-400 rounded-full" style={{ width: bar + '%' }} /></div>
+        : <div className="font-label text-xs text-slate-400 flex items-center gap-1.5">{foot}</div>}
     </div>
   );
 }
@@ -35,8 +35,8 @@ function Toggle({ checked, onChange, label }) {
   return (
     <label className="relative inline-flex items-center cursor-pointer shrink-0">
       <input type="checkbox" className="sr-only peer" checked={checked} onChange={e => onChange(e.target.checked)} aria-label={label} />
-      <div className="w-11 h-6 rounded-full bg-surface-container-highest peer-checked:bg-secondary-container transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary" />
-      <div className="absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-on-surface-variant peer-checked:translate-x-5 peer-checked:bg-on-secondary-container transition-all" />
+      <div className="w-11 h-6 rounded-full bg-black/60 border border-white/[0.1] peer-checked:bg-[#ff384c] transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-[#ff384c]" />
+      <div className="absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-slate-300 peer-checked:translate-x-5 peer-checked:bg-white transition-all shadow-sm" />
     </label>
   );
 }

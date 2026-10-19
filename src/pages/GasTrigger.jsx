@@ -23,20 +23,20 @@ function parseTs(ts) {
 const fmtTime = (ts, today) => (String(ts).startsWith(today) ? String(ts).slice(11, 19) : String(ts).slice(8, 10) + '/' + String(ts).slice(5, 7) + ' ' + String(ts).slice(11, 16));
 const fmtMs = ms => (ms >= 1000 ? (ms / 1000).toFixed(1) + 's' : Math.round(ms) + 'ms');
 
-function Kpi({ label, tone, badge, badgeClass = 'text-secondary', children, foot, footValue, footClass = 'text-on-surface' }) {
+function Kpi({ label, tone, badge, badgeClass = 'text-sky-400', children, foot, footValue, footClass = 'text-white' }) {
   return (
-    <div className="rounded-xl bg-surface-container p-space-md flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
-      <div className={'absolute -right-6 -top-6 w-24 h-24 rounded-full pointer-events-none ' + tone} />
-      <div className="flex flex-col gap-space-xs">
+    <div className="rounded-2xl backdrop-blur-xl bg-[#0c1017]/80 border border-white/[0.08] p-5 flex flex-col justify-between shadow-[0_12px_32px_rgba(0,0,0,0.5)] hover:border-white/[0.14] transition-all relative overflow-hidden group">
+      <div className={'absolute -right-6 -top-6 w-24 h-24 rounded-full pointer-events-none opacity-20 ' + tone} />
+      <div className="flex flex-col gap-1">
         <div className="flex items-center justify-between gap-2">
-          <span className="font-label text-label-md text-outline uppercase tracking-wider">{label}</span>
-          {badge && <span className={'px-2 py-0.5 rounded-full bg-surface-container-high font-label text-label-sm font-semibold flex items-center gap-1 ' + badgeClass}>{badge}</span>}
+          <span className="font-label text-[11px] text-slate-400 uppercase tracking-wider font-bold">{label}</span>
+          {badge && <span className={'px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] font-label text-xs font-semibold flex items-center gap-1 ' + badgeClass}>{badge}</span>}
         </div>
         <div className="mt-1 min-w-0">{children}</div>
       </div>
-      <div className="mt-4 pt-3 bg-surface-container-low/70 -mx-space-md -mb-space-md px-space-md pb-space-sm flex items-center justify-between gap-2 font-label text-label-sm">
-        <span className="text-outline shrink-0">{foot}</span>
-        <span className={'font-semibold truncate ' + footClass}>{footValue}</span>
+      <div className="mt-3.5 bg-black/40 border border-white/[0.05] rounded-xl px-3 py-2 flex items-center justify-between gap-2 text-xs">
+        <span className="text-slate-400 shrink-0">{foot}</span>
+        <span className={'font-mono font-semibold truncate ' + footClass}>{footValue}</span>
       </div>
     </div>
   );
@@ -44,13 +44,13 @@ function Kpi({ label, tone, badge, badgeClass = 'text-secondary', children, foot
 
 function Meter({ label, left, right, pct, bar, foot, icon, tone }) {
   return (
-    <div className="rounded-xl bg-surface-container p-space-md flex flex-col justify-between">
-      <div className="flex items-center gap-2"><Icon name={icon} size={20} className={tone} /><span className="font-label text-label-lg font-semibold text-on-surface">{label}</span></div>
+    <div className="rounded-2xl backdrop-blur-xl bg-[#0c1017]/80 border border-white/[0.08] p-5 flex flex-col justify-between shadow-[0_12px_32px_rgba(0,0,0,0.5)]">
+      <div className="flex items-center gap-2"><Icon name={icon} size={20} className={tone} /><span className="font-label text-sm font-bold text-white">{label}</span></div>
       <div className="my-3">
-        <div className="flex justify-between font-label text-label-sm mb-1"><span className="text-outline">{left}</span><span className="text-on-surface font-mono">{right}</span></div>
-        <div className="h-2 rounded-full bg-surface-container-lowest overflow-hidden"><div className={'h-full rounded-full transition-all ' + bar} style={{ width: Math.max(1, Math.min(100, pct)) + '%' }} /></div>
+        <div className="flex justify-between font-label text-xs mb-1.5"><span className="text-slate-400">{left}</span><span className="text-white font-mono font-semibold">{right}</span></div>
+        <div className="h-2 rounded-full bg-black/60 border border-white/[0.06] overflow-hidden"><div className={'h-full rounded-full transition-all ' + bar} style={{ width: Math.max(1, Math.min(100, pct)) + '%' }} /></div>
       </div>
-      <span className="font-label text-label-sm text-on-surface-variant">{foot}</span>
+      <span className="font-label text-xs text-slate-400">{foot}</span>
     </div>
   );
 }

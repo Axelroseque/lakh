@@ -9,36 +9,36 @@ import { IDLE_CHOICES, PREF_DEFAULTS, setPrefs, usePrefs } from '../lib/prefs.js
 import { useAsync } from '../lib/useAsync.js';
 
 const TABS = [['security', 'security', 'Umum & Keamanan'], ['gas', 'cloud_sync', 'Integrasi API & GAS'], ['ai', 'memory', 'Model AI'], ['data', 'database', 'Penyimpanan & Data']];
-const inputCls = 'w-full rounded-lg bg-surface-container-lowest border border-outline-variant/40 px-3 py-2.5 text-body-md text-on-surface placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container';
-const roCls = 'w-full rounded-lg bg-surface-container-lowest/60 border border-outline-variant/20 px-3 py-2.5 text-body-md text-on-surface-variant font-mono truncate';
+const inputCls = 'w-full rounded-xl bg-black/50 border border-white/[0.08] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-[#ff384c] focus:ring-1 focus:ring-[#ff384c]/50 transition-all shadow-inner';
+const roCls = 'w-full rounded-xl bg-black/30 border border-white/[0.05] px-3.5 py-2.5 text-sm text-slate-300 font-mono truncate';
 
 function Panel({ icon, tone, title, subtitle, badge, children }) {
   return (
-    <section className="rounded-xl bg-surface-container shadow-sm overflow-hidden">
-      <div className="p-space-md flex items-center justify-between gap-3 bg-surface-container-high/30">
+    <section className="rounded-2xl backdrop-blur-xl bg-[#0c1017]/80 border border-white/[0.08] shadow-[0_16px_40px_-10px_rgba(0,0,0,0.6)] overflow-hidden">
+      <div className="p-space-md flex items-center justify-between gap-3 bg-black/40 border-b border-white/[0.06]">
         <div className="flex items-center gap-3 min-w-0">
-          <span className={'p-2 rounded-lg bg-surface-container-high shrink-0 ' + tone}><Icon name={icon} size={22} /></span>
-          <div className="min-w-0"><h2 className="text-headline-md font-bold text-on-surface">{title}</h2><p className="font-label text-label-sm text-on-surface-variant">{subtitle}</p></div>
+          <span className={'w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center shrink-0 ' + tone}><Icon name={icon} size={22} /></span>
+          <div className="min-w-0"><h2 className="text-lg font-bold text-white">{title}</h2><p className="font-label text-xs text-slate-400">{subtitle}</p></div>
         </div>
-        {badge && <span className="hidden sm:inline px-2 py-0.5 rounded font-label text-label-sm bg-surface-container-high text-outline whitespace-nowrap">{badge}</span>}
+        {badge && <span className="hidden sm:inline px-2.5 py-0.5 rounded-full font-label text-xs bg-white/[0.04] border border-white/[0.08] text-slate-300 whitespace-nowrap">{badge}</span>}
       </div>
       <div className="p-space-md flex flex-col gap-space-md">{children}</div>
     </section>
   );
 }
 const Row = ({ label, hint, children }) => (
-  <div className="flex flex-col gap-1.5"><span className="font-label text-label-md text-on-surface-variant">{label}</span>{children}{hint && <span className="font-label text-label-sm text-outline">{hint}</span>}</div>
+  <div className="flex flex-col gap-1.5"><span className="font-label text-xs font-semibold text-slate-300">{label}</span>{children}{hint && <span className="font-label text-xs text-slate-500">{hint}</span>}</div>
 );
 function Toggle({ checked, onChange, label }) {
   return (
     <label className="relative inline-flex items-center cursor-pointer shrink-0">
       <input type="checkbox" className="sr-only peer" checked={checked} onChange={e => onChange(e.target.checked)} aria-label={label} />
-      <div className="w-11 h-6 rounded-full bg-surface-container-highest peer-checked:bg-secondary-container transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary" />
-      <div className="absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-on-surface-variant peer-checked:translate-x-5 peer-checked:bg-on-secondary-container transition-all" />
+      <div className="w-11 h-6 rounded-full bg-black/60 border border-white/[0.1] peer-checked:bg-[#ff384c] transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-[#ff384c]" />
+      <div className="absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-slate-300 peer-checked:translate-x-5 peer-checked:bg-white transition-all shadow-sm" />
     </label>
   );
 }
-const Flag = ({ ok, yes, no }) => <span className={'inline-flex items-center gap-1.5 font-label text-label-md font-semibold ' + (ok ? 'text-emerald-400' : 'text-primary-container')}><Icon name={ok ? 'check_circle' : 'warning'} size={16} />{ok ? yes : no}</span>;
+const Flag = ({ ok, yes, no }) => <span className={'inline-flex items-center gap-1.5 font-label text-xs font-bold ' + (ok ? 'text-emerald-400' : 'text-[#ff4d5a]')}><Icon name={ok ? 'check_circle' : 'warning'} size={16} />{ok ? yes : no}</span>;
 
 export default function Pengaturan() {
   const today = todayJakarta();

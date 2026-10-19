@@ -1,48 +1,55 @@
 @import "tailwindcss";
 
-/* Design tokens taken from the LAKH mockups (dark theme only). */
+/* High-end Admin Dashboard Design Tokens (Pure black & deep grey with vibrant coral-red accent) */
 @theme {
-  --color-primary: #ffb3b0;
-  --color-primary-container: #ff5358;
-  --color-primary-fixed: #ffdad8;
-  --color-on-primary: #68000f;
-  --color-on-primary-container: #5b000c;
-  --color-secondary: #adc6ff;
-  --color-secondary-container: #0566d9;
-  --color-on-secondary: #002e6a;
-  --color-on-secondary-container: #e6ecff;
-  --color-tertiary: #c0c1ff;
-  --color-tertiary-container: #8083ff;
-  --color-tertiary-fixed: #e1e0ff;
-  --color-error: #ffb4ab;
-  --color-error-container: #93000a;
-  --color-on-error-container: #ffdad6;
-  --color-background: #111317;
-  --color-surface: #111317;
-  --color-surface-container-lowest: #0c0e12;
-  --color-surface-container-low: #1a1c20;
-  --color-surface-container: #1e2024;
-  --color-surface-container-high: #282a2e;
-  --color-surface-container-highest: #333539;
-  --color-surface-bright: #37393e;
-  --color-surface-variant: #333539;
-  --color-on-surface: #e2e2e8;
-  --color-on-surface-variant: #e6bdba;
-  --color-outline: #ab8987;
-  --color-outline-variant: #5d3f3e;
+  --color-primary: #ff5c6a;
+  --color-primary-container: #ff384c;
+  --color-primary-fixed: #ff7582;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #ffffff;
 
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-label: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-secondary: #38bdf8;
+  --color-secondary-container: #0284c7;
+  --color-on-secondary: #002244;
+  --color-on-secondary-container: #e0f2fe;
+
+  --color-tertiary: #a78bfa;
+  --color-tertiary-container: #7c3aed;
+  --color-tertiary-fixed: #ddd6fe;
+
+  --color-error: #fb7185;
+  --color-error-container: #881337;
+  --color-on-error-container: #ffe4e6;
+
+  /* Deep grey and pure black backgrounds */
+  --color-background: #060709;
+  --color-surface: #0a0d14;
+  --color-surface-container-lowest: #030406;
+  --color-surface-container-low: #0c1018;
+  --color-surface-container: #121722;
+  --color-surface-container-high: #182030;
+  --color-surface-container-highest: #202a3f;
+  --color-surface-bright: #293650;
+  --color-surface-variant: #161c28;
+
+  --color-on-surface: #f1f4f9;
+  --color-on-surface-variant: #94a3b8;
+  --color-outline: #64748b;
+  --color-outline-variant: rgba(255, 255, 255, 0.08);
+
+  --font-sans: "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-label: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --text-headline-xl: 32px;
   --text-headline-xl--line-height: 40px;
-  --text-headline-xl--font-weight: 700;
+  --text-headline-xl--font-weight: 800;
   --text-headline-lg: 24px;
   --text-headline-lg--line-height: 32px;
   --text-headline-lg--font-weight: 700;
   --text-headline-md: 18px;
   --text-headline-md--line-height: 26px;
-  --text-headline-md--font-weight: 600;
+  --text-headline-md--font-weight: 700;
   --text-body-lg: 16px;
   --text-body-lg--line-height: 24px;
   --text-body-md: 14px;
@@ -68,22 +75,95 @@
 }
 
 @layer base {
-  html, body { margin: 0; padding: 0; }
-  body {
-    background: var(--color-background);
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--color-background);
     color: var(--color-on-surface);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "tnum";
     overscroll-behavior: none;
   }
+
+  /* Volumetric ambient lighting backdrop */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -15%;
+    left: 20%;
+    width: 65vw;
+    height: 55vh;
+    background: radial-gradient(circle, rgba(255, 56, 76, 0.08) 0%, rgba(56, 189, 248, 0.03) 40%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(100px);
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -10%;
+    right: 10%;
+    width: 50vw;
+    height: 50vh;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(100px);
+  }
+
   button { cursor: pointer; }
   button:disabled { cursor: not-allowed; }
-  :focus-visible { outline: 2px solid var(--color-secondary); outline-offset: 2px; }
+  :focus-visible { outline: 2px solid var(--color-primary-container); outline-offset: 2px; }
   select, input, textarea { font: inherit; }
+
+  /* Sleek custom scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(6, 7, 9, 0.6);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 56, 76, 0.4);
+  }
 }
 
-/* Labels, chips and metadata use Inter, as in the mockups. */
+/* Glassmorphism utility classes */
+.glass-panel {
+  background: rgba(12, 16, 24, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-subcard {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.glass-glow-coral {
+  box-shadow: 0 0 25px rgba(255, 56, 76, 0.35);
+}
+
 .font-label { font-family: var(--font-label); }
+.font-mono { font-family: var(--font-mono); }
 
 /* Generator matrix columns: time | task | result | status | actions */
 @media (min-width: 768px) {

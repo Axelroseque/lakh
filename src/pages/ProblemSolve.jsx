@@ -17,13 +17,13 @@ const clearDraft = () => { try { localStorage.removeItem(KB_DRAFT_KEY); } catch 
 
 function Metric({ label, value, sub, icon, tone }) {
   return (
-    <div className="rounded-xl bg-surface-container p-space-md flex items-start justify-between gap-2 min-w-0">
+    <div className="rounded-2xl backdrop-blur-xl bg-[#0c1017]/80 border border-white/[0.08] p-5 flex items-start justify-between gap-3 shadow-[0_12px_32px_rgba(0,0,0,0.5)] hover:border-white/[0.14] transition-all min-w-0">
       <div className="flex flex-col min-w-0">
-        <span className="font-label text-label-md text-outline uppercase tracking-wider">{label}</span>
-        <span className="text-headline-lg font-bold text-on-surface mt-1 truncate">{value}</span>
-        <span className="font-label text-label-sm text-on-surface-variant mt-1 truncate">{sub}</span>
+        <span className="font-label text-[11px] text-slate-400 uppercase tracking-wider font-bold">{label}</span>
+        <span className="text-2xl font-extrabold text-white mt-1 truncate tracking-tight">{value}</span>
+        <span className="font-label text-xs text-slate-400 mt-1 truncate">{sub}</span>
       </div>
-      <div className={'p-2 rounded-lg bg-surface-container-high shrink-0 ' + tone}><Icon name={icon} size={20} /></div>
+      <div className={'w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.07] flex items-center justify-center shrink-0 ' + tone}><Icon name={icon} size={20} /></div>
     </div>
   );
 }
@@ -32,37 +32,37 @@ function Case({ k }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const link = safeUrl(k.evidenUrl);
-  const [badge, badgeCls] = SEVERITY_BADGE[k.severity] || ['KASUS', 'bg-surface-container-high text-outline'];
+  const [badge, badgeCls] = SEVERITY_BADGE[k.severity] || ['KASUS', 'bg-white/[0.05] text-slate-400 border border-white/[0.08]'];
   const lines = (k.stackTrace || '').split('\n');
   const long = lines.length > 4 || (k.stackTrace || '').length > 320;
   const copy = async () => {
     try { await navigator.clipboard.writeText(k.solusi); setCopied(true); setTimeout(() => setCopied(false), 1800); } catch { /* clipboard blocked */ }
   };
   return (
-    <article className="rounded-xl bg-surface-container p-space-md space-y-3 hover:bg-surface-container-high/60 transition-colors" data-testid="kb-card">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+    <article className="rounded-2xl backdrop-blur-xl bg-[#0c1017]/80 border border-white/[0.08] p-5 space-y-3.5 hover:border-white/[0.14] transition-all shadow-[0_12px_32px_rgba(0,0,0,0.4)]" data-testid="kb-card">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-white/[0.05]">
         <div className="flex flex-wrap items-center gap-1.5 min-w-0">
-          <span className={'px-2 py-0.5 rounded font-label text-label-sm font-bold tracking-wide ' + badgeCls}>{badge}</span>
-          {(k.tags || []).map((t, i) => <span key={t} className={'px-1.5 py-0.5 rounded bg-surface-container-lowest font-label text-label-sm ' + TAG_TONES[i % 3]}>#{t}</span>)}
+          <span className={'px-2.5 py-0.5 rounded-full font-label text-xs font-bold tracking-wide border ' + badgeCls}>{badge}</span>
+          {(k.tags || []).map((t, i) => <span key={t} className={'px-2 py-0.5 rounded-full bg-black/60 border border-white/[0.06] font-mono text-xs ' + TAG_TONES[i % 3]}>#{t}</span>)}
         </div>
-        <span className="flex items-center gap-1 font-label text-label-sm text-outline whitespace-nowrap"><Icon name="schedule" size={14} /> {relTime(k.timestamp)}</span>
+        <span className="flex items-center gap-1.5 font-mono text-xs text-slate-400 whitespace-nowrap"><Icon name="schedule" size={14} /> {relTime(k.timestamp)}</span>
       </div>
-      <h2 className="text-headline-md font-bold text-on-surface leading-snug break-words">{k.judul}</h2>
+      <h2 className="text-lg font-bold text-white leading-snug break-words">{k.judul}</h2>
       {k.stackTrace && (
-        <div className="rounded-lg bg-surface-container-lowest overflow-hidden">
-          <div className="flex items-center justify-between px-3 py-1.5 bg-surface-container-low font-label text-label-sm text-outline">
-            <span className="flex items-center gap-1.5"><Icon name="bug" size={14} /> Error Log Snippet</span>
-            <span className="font-mono">{k.id}</span>
+        <div className="rounded-xl bg-black/60 border border-white/[0.06] overflow-hidden shadow-inner">
+          <div className="flex items-center justify-between px-3.5 py-2 bg-black/40 border-b border-white/[0.04] font-label text-xs text-slate-400">
+            <span className="flex items-center gap-1.5 font-semibold text-slate-300"><Icon name="bug" size={14} className="text-[#ff4d5a]" /> Error Log Snippet</span>
+            <span className="font-mono text-xs">{k.id}</span>
           </div>
-          <pre className={'px-3 py-2 font-mono text-[12px] leading-relaxed text-secondary whitespace-pre-wrap break-words ' + (open ? 'max-h-80 overflow-auto' : 'max-h-[5.5rem] overflow-hidden')}>{k.stackTrace}</pre>
-          {long && <button type="button" onClick={() => setOpen(v => !v)} className="w-full px-3 py-1 text-left font-label text-label-sm text-primary hover:underline">{open ? 'Ringkas log' : 'Tampilkan seluruh log'}</button>}
+          <pre className={'px-3.5 py-2.5 font-mono text-[12px] leading-relaxed text-sky-300 whitespace-pre-wrap break-words ' + (open ? 'max-h-80 overflow-auto' : 'max-h-[5.5rem] overflow-hidden')}>{k.stackTrace}</pre>
+          {long && <button type="button" onClick={() => setOpen(v => !v)} className="w-full px-3.5 py-1.5 text-left font-label text-xs font-semibold text-[#ff5c6a] hover:underline bg-black/30 border-t border-white/[0.04]">{open ? 'Ringkas log' : 'Tampilkan seluruh log'}</button>}
         </div>
       )}
-      <div className="rounded-lg bg-surface-container-low/70 p-space-sm">
-        <div className="flex items-center gap-1.5 font-label text-label-md font-semibold text-secondary"><Icon name="check_circle" size={16} /> Solusi Konkret:</div>
-        <p className="mt-1 text-body-md text-on-surface-variant whitespace-pre-line break-words">{k.solusi}</p>
+      <div className="rounded-xl bg-black/40 border border-white/[0.05] p-3.5">
+        <div className="flex items-center gap-1.5 font-label text-xs font-bold text-sky-400"><Icon name="check_circle" size={16} /> Solusi Konkret:</div>
+        <p className="mt-1.5 text-sm text-slate-200 whitespace-pre-line break-words leading-relaxed">{k.solusi}</p>
       </div>
-      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 font-label text-label-sm text-outline">
+      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 font-label text-xs text-slate-400 border-t border-white/[0.04]">
         <span>{k.verifiedBy ? <>Diverifikasi oleh <strong className="text-on-surface">{k.verifiedBy}</strong></> : <span>{k.sistem} • {k.id}</span>}</span>
         <div className="flex items-center gap-3">
           {link && <a href={link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-secondary hover:underline"><Icon name="link" size={14} /> Eviden Drive</a>}

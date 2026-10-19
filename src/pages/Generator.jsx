@@ -14,10 +14,12 @@ const COLS = 'llk-cols';
 
 function Metric({ label, icon, tone, children }) {
   return (
-    <div className="p-space-md rounded-xl bg-surface-container-low shadow-md">
-      <div className="flex items-center justify-between">
-        <span className="font-label text-label-md text-outline uppercase tracking-wider font-semibold">{label}</span>
-        <Icon name={icon} size={20} className={tone} />
+    <div className="relative backdrop-blur-xl bg-[#0c1017]/80 rounded-2xl border border-white/[0.08] p-5 shadow-[0_16px_40px_-10px_rgba(0,0,0,0.6)] hover:border-white/[0.14] transition-all">
+      <div className="flex items-center justify-between pb-2 border-b border-white/[0.05] mb-2">
+        <span className="font-label text-[11px] uppercase tracking-wider text-slate-400 font-bold">{label}</span>
+        <div className={'w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] flex items-center justify-center ' + tone}>
+          <Icon name={icon} size={18} />
+        </div>
       </div>
       {children}
     </div>
@@ -25,16 +27,16 @@ function Metric({ label, icon, tone, children }) {
 }
 
 function Compliance({ row, error, warning }) {
-  if (error) return <Pill className="bg-error-container/50 text-on-error-container font-semibold"><Icon name="error" size={13} /> Perlu diperbaiki</Pill>;
-  if (row.skip) return <Pill className="bg-surface-container text-outline">Diabaikan dari LLK</Pill>;
-  if (row.status === 'Selesai') return <Pill className="bg-surface-container text-secondary font-semibold"><Icon name="check_circle" size={13} /> Selesai</Pill>;
-  if (row.status === 'Terunggah' || (row.evidenUrls && row.evidenUrls.length)) return <Pill className="bg-secondary-container/20 text-secondary font-semibold"><Icon name="attach" size={13} /> Eviden terunggah</Pill>;
-  if (row.evidenRequired) return <Pill className="bg-primary-container/20 text-primary-container font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" /> Perlu eviden foto</Pill>;
-  return <Pill className="bg-secondary-container/20 text-secondary font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-secondary" /> Terjadwal</Pill>;
+  if (error) return <Pill className="bg-rose-950/40 border border-rose-500/40 text-rose-300 font-bold"><Icon name="error" size={13} /> Perlu diperbaiki</Pill>;
+  if (row.skip) return <Pill className="bg-white/[0.04] border border-white/[0.06] text-slate-400">Diabaikan</Pill>;
+  if (row.status === 'Selesai') return <Pill className="bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 font-semibold"><Icon name="check_circle" size={13} /> Selesai</Pill>;
+  if (row.status === 'Terunggah' || (row.evidenUrls && row.evidenUrls.length)) return <Pill className="bg-sky-500/15 border border-sky-400/30 text-sky-400 font-semibold"><Icon name="attach" size={13} /> Eviden terunggah</Pill>;
+  if (row.evidenRequired) return <Pill className="bg-rose-500/15 border border-rose-500/30 text-[#ff4d5a] font-bold shadow-[0_0_10px_rgba(255,56,76,0.3)]"><span className="w-1.5 h-1.5 rounded-full bg-[#ff384c] animate-pulse" /> Perlu eviden foto</Pill>;
+  return <Pill className="bg-sky-500/10 border border-sky-400/20 text-sky-300 font-semibold"><span className="w-1.5 h-1.5 rounded-full bg-sky-400" /> Terjadwal</Pill>;
 }
 
 function Field({ className = '', ...rest }) {
-  return <input className={'w-full min-w-0 bg-surface-container-lowest rounded-md px-2 py-1.5 text-on-surface focus:outline-none focus:ring-1 focus:ring-secondary placeholder:text-outline/50 ' + className} {...rest} />;
+  return <input className={'w-full min-w-0 bg-black/50 border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-[#ff384c] focus:ring-1 focus:ring-[#ff384c]/50 text-sm placeholder:text-slate-500 transition-all shadow-inner ' + className} {...rest} />;
 }
 
 function IconToggle({ on, onClick, icon, title, tone = 'text-primary-container' }) {
